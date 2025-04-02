@@ -4,6 +4,7 @@ const fs = require("fs");
 const path = require("path");
 const bcrypt = require("bcrypt");
 
+
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "frontend")));
 
@@ -31,7 +32,6 @@ async function verifyPassword(inputPassword, storedHash) {
 
 // function createUser(username, password) {
 //   userList = readFile("users.json");
-
 //   hashPassword(password)
 //     .then((hashedPasswort) => {
 //       let newUser = {
@@ -70,6 +70,37 @@ app.get("/films", (req, res) => {
     });
   }
 });
+
+app.post("/users", (req, res) => {
+  try {
+
+
+    const { username, password } = req.body; // Extrahiert Nutzerdaten aus der Anfrage.
+
+    // Prüfen, ob Benutzername und Passwort vorhanden sind.
+    if (!username || !password) {
+      return res.status(400).json({ error: "Username und Passwort erforderlich!" });
+    }
+
+    let users = readFile("users.json");// Bestehenden Nutzer aus der Datei laden.
+
+    // Prüfen, ob der Benutzer bereits existiert.
+    if (users.some(user => user.username === username)) {
+      return res.status(409).json({ error: "Nutzer existiert bereits." });
+    }
+    // Neuen Nutzer zur Liste hinzufügen.
+    hashPassword(password).then(hashedPassword => {
+      users.push({ id: users.length + 1, username, password: hashedPassword });
+      writeFile("users.json", users) // Nutzerliste speichern
+
+      res.status(201).json({ message: "Nutzer erfolgreich hinzugefügt." });
+    })
+  }  catch (err) {
+    res.status(500).json({
+      error: `Internal Server Error: ${err}`,
+    });
+  }
+})
 
 app.put("/users", (req, res) => {
   try {
@@ -213,4 +244,4 @@ app.post("/users/login", (req, res) => {
 
 app.listen(5005, () => {
   console.log("API läuft auf Port 5005");
-});
+})
