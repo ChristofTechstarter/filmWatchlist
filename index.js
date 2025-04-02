@@ -30,7 +30,7 @@ async function verifyPassword(inputPassword, storedHash) {
 // Musterfunktion zum anlegen eines neuen Users mit einem gehashten Passwort
 
 // function createUser(username, password) {
-//   userList = readFile("test.json");
+//   userList = readFile("users.json");
 
 //   hashPassword(password)
 //     .then((hashedPasswort) => {
@@ -39,7 +39,7 @@ async function verifyPassword(inputPassword, storedHash) {
 //         password: hashedPasswort,
 //       };
 //       userList.push(newUser);
-//       writeFile("test.json", userList);
+//       writeFile("users.json", userList);
 //     })
 //     .catch((err) => console.error("Fehler beim Hashen:", err));
 // }
@@ -64,6 +64,81 @@ app.get("/films", (req, res) => {
   try {
     const filmList = readFile("films.json");
     res.json(filmList);
+  } catch (error) {
+    res.status(500).json({
+      error: "Internal Server error, Please try again later!",
+      errorMessage: error,
+    });
+  }
+});
+
+app.put("/users", (req, res) => {
+  try {
+    const usersList = readFile("users.json");
+    const { username, password, newUsername, newPassword } = req.body;
+
+    // Überprüfung, ob eingegebener Nutzername existiert
+    if (!usersList.some((user) => user.username === username)) {
+      return res.status(400).json({
+        error: `Invalid Criteria. Please check your input and try again.`,
+      });
+    }
+
+    // initialisierung des user-Objektes und seines gespeicherten gehashten Passwort
+    let FoundUser = usersList.find((user) => user.username === username);
+    let StoredHashedPassword = FoundUser.password;
+
+    // Überprüfung des eingegeben Passworts mit dem Gespeicherten
+    verifyPassword(password, StoredHashedPassword).then((ergebniss) => {
+      if (!ergebniss) {
+        return res.status(400).json({
+          error: `Invalid Criteria. Please check your input and try again.`,
+        });
+      }
+
+      // Wenn ein neuer Username mitgegeben wird, wird er zu dem Objekt "Found User" hinzugefügt
+      if (newUsername) {
+        if (usersList.some((user) => user.username === newUsername)) {
+          return res
+            .status(400)
+            .json({ error: `Username '${newUsername}' already exists!` });
+        }
+        FoundUser.username = newUsername;
+      }
+
+      // Falls keine neue Daten mitgegeben werden, wird die Funktion abgebrochen
+      if (!newUsername && !newPassword) {
+        return res.status(400).json({ error: "No new Data given!" });
+      }
+
+      // Wenn ein neues passwort mitgegeben wird, wird dieses gehashed und in dem Objekt (FoundUser) als password eingetragen
+
+      if (newPassword) {
+        hashPassword(newPassword)
+          .then((hashedPasswort) => {
+            FoundUser.password = hashedPasswort;
+            writeFile("users.json", usersList);
+            return res.status(200).json({
+              message: "Sucessfully updated User!",
+              updatedUser: FoundUser,
+            });
+          })
+          .catch((err) => {
+            console.error("Fehler beim Vergleich:", err);
+            return res.status(500).json({
+              error: "Internal Server error, Please try again later!",
+              errorMessage: err,
+            });
+          });
+      } else {
+        // Falls kein Neues Passwort mitgegeben wird, damit der geänderte Username Übernommen wird
+        writeFile("users.json", usersList);
+        return res.status(200).json({
+          message: "Sucessfully updated User!",
+          updatedUser: FoundUser,
+        });
+      }
+    });
   } catch (error) {
     res.status(500).json({
       error: "Internal Server error, Please try again later!",
