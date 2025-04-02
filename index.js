@@ -147,6 +147,47 @@ app.put("/users", (req, res) => {
   }
 });
 
+app.delete("/users", (req, res) => {
+  try {
+    const usersList = readFile("users.json");
+    const { username, password } = req.body;
+
+    // Überprüfung, ob eingegebener Nutzername existiert
+    if (!usersList.some((user) => user.username === username)) {
+      return res.status(400).json({
+        error: `Invalid Criteria. Please check your input and try again.`,
+      });
+    }
+
+    // initialisierung des user-Objektes und seines gespeicherten gehashten Passwort
+    let FoundUser = usersList.find((user) => user.username === username);
+    let StoredHashedPassword = FoundUser.password;
+
+    // Überprüfung des eingegeben Passworts mit dem Gespeicherten
+    verifyPassword(password, StoredHashedPassword).then((ergebniss) => {
+      if (!ergebniss) {
+        return res.status(400).json({
+          error: `Invalid Criteria. Please check your input and try again.`,
+        });
+      }
+      let FoundUserIndex = usersList.findIndex(
+        (user) => user.username === username
+      );
+      let deletedUser = usersList.splice(FoundUserIndex, 1);
+      writeFile("users.json", usersList);
+      return res.status(200).json({
+        message: "Sucessfully deleted User!",
+        deletedUser: deletedUser[0],
+      });
+    });
+  } catch (error) {
+    res.status(500).json({
+      error: "Internal Server error, Please try again later!",
+      errorMessage: error,
+    });
+  }
+});
+
 app.listen(5005, () => {
   console.log("API läuft auf Port 5005");
 });
