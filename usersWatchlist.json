@@ -1,1 +1,19 @@
-[]
+{
+  "1": [
+    {
+      "id": 1,
+      "title": "The Dark Knight",
+      "year": 2008
+    },
+    {
+      "id": 2,
+      "title": "The Avengers",
+      "year": 2012
+    },
+    {
+      "id": 4,
+      "title": "John Wick",
+      "year": 2014
+    }
+  ]
+}
