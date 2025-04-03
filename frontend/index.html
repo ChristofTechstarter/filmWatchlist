@@ -3,9 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Watchlist API</title>
+    <script src="filmList.js" defer></script>
+    <script src="filmListAdd.js" defer></script>
 </head>
 <body>
+    <header>
+        <h1>Watchlist API</h1>
+    </header>
+
+    <div id="filmList"></div>
+
+
+    <form id="filmListAdd">
+        <input id="usernameInput" type="text" placeholder="Usernamen eingeben">
+        <input id="passwordInput" type="password" placeholder="Passwort eingeben....">
+        <button type="submit">Auswahl hinzufügen</button>
+    </form>
+    <div id="filmListAnswer"></div>
     
 </body>
 </html>
