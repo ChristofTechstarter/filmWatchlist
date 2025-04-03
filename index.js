@@ -95,7 +95,7 @@ app.post("/users", (req, res) => {
 
       res.status(201).json({ message: "Nutzer erfolgreich hinzugefügt." });
     })
-  }  catch (err) {
+  } catch (err) {
     res.status(500).json({
       error: `Internal Server Error: ${err}`,
     });
@@ -243,12 +243,15 @@ app.post("/users/login", (req, res) => {
 });
 
 
-app.delete("/usersWatchlist", (req, res) => {
+
+app.post("/films", (req, res) => {
+
   try {
+    const filmList = readFile("films.json");
     const usersWatchList = readFile("usersWatchlist.json");
-    const { username, password, movieId } = req.body;
     const usersList = readFile("users.json")
- 
+
+    const { username, password, filmID } = req.body;
 
     // Überprüfung, ob eingegebener Nutzername existiert
     if (!usersList.some((user) => user.username === username)) {
@@ -268,13 +271,82 @@ app.delete("/usersWatchlist", (req, res) => {
           error: `Invalid Criteria. Please check your input and try again.`,
         });
       }
-      
+
+      // Überprüfung, ob Liste existiert, wenn nicht wird sie erstellt
+      const userID = FoundUser.id;
+      if (!usersWatchList[userID]) {
+        usersWatchList[userID] = [];
+      }
+
+      let userWatchList = usersWatchList[userID]; // die aktuelle Filmliste
+
+      filmID.forEach((item) => {
+        let film = filmList.find((film) => film.id == item);
+        const alreadyExists = userWatchList.some((f) => f.id == item);
+
+        if (film && !alreadyExists) {
+          userWatchList.push(film);
+        }
+      });
+
+      writeFile("usersWatchlist.json", usersWatchList);
+      return res.status(200).json({
+        message: "Sucessfully added Film(s) to Watchlist!",
+        filmList: userWatchList,
+      });
+    });
+  } catch (err) {
+    res.status(500).json({
+      error: `Internal Server Error: ${err}`,
+    });
+  }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+app.delete("/usersWatchlist", (req, res) => {
+  try {
+    const usersWatchList = readFile("usersWatchlist.json");
+    const { username, password, movieId } = req.body;
+    const usersList = readFile("users.json")
+
+
+    // Überprüfung, ob eingegebener Nutzername existiert
+    if (!usersList.some((user) => user.username === username)) {
+      return res.status(400).json({
+        error: `Invalid Criteria. Please check your input and try again.`,
+      });
+    }
+
+    // initialisierung des user-Objektes und seines gespeicherten gehashten Passwort
+    let FoundUser = usersList.find((user) => user.username === username);
+    let StoredHashedPassword = FoundUser.password;
+
+    // Überprüfung des eingegeben Passworts mit dem Gespeicherten
+    verifyPassword(password, StoredHashedPassword).then((ergebniss) => {
+      if (!ergebniss) {
+        return res.status(400).json({
+          error: `Invalid Criteria. Please check your input and try again.`,
+        });
+      }
+
       if (movieId) {
         let movieIndex = usersWatchList[FoundUser.id].findIndex(movie => movie.id == movieId)
         usersWatchList[FoundUser.id].splice(movieIndex, 1)
       }
 
-      
+
       writeFile("usersWatchlist.json", usersWatchList);
       return res.status(200).json({
         message: "Sucessfully deleted User!"

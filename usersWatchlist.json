@@ -3,17 +3,20 @@
     {
       "id": 1,
       "title": "The Dark Knight",
-      "year": 2008
+      "year": 2008,
+      "genre": "Action"
     },
     {
       "id": 2,
       "title": "The Avengers",
-      "year": 2012
+      "year": 2012,
+      "genre": "Action"
     },
     {
-      "id": 4,
-      "title": "John Wick",
-      "year": 2014
+      "id": 3,
+      "title": "Mad Max: Fury Road",
+      "year": 2015,
+      "genre": "Action"
     }
   ]
 }
