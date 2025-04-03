@@ -1,212 +1,242 @@
 [
     {
-        "Action": [
-            {
-                "id": 1,
-                "title": "The Dark Knight",
-                "year": 2008
-            },
-            {
-                "id": 2,
-                "title": "The Avengers",
-                "year": 2012
-            },
-            {
-                "id": 3,
-                "title": "Mad Max: Fury Road",
-                "year": 2015
-            },
-            {
-                "id": 4,
-                "title": "John Wick",
-                "year": 2014
-            },
-            {
-                "id": 5,
-                "title": "Gladiator",
-                "year": 2000
-            },
-            {
-                "id": 6,
-                "title": "Die Hard",
-                "year": 1988
-            },
-            {
-                "id": 7,
-                "title": "Kill Bill: Volume 1",
-                "year": 2003
-            },
-            {
-                "id": 8,
-                "title": "Léon: The Professional",
-                "year": 1994
-            },
-            {
-                "id": 9,
-                "title": "Terminator 2: Judgment Day",
-                "year": 1991
-            },
-            {
-                "id": 10,
-                "title": "The Raid",
-                "year": 2011
-            }
-        ],
-        "Science-Fiction": [
-            {
-                "id": 11,
-                "title": "Inception",
-                "year": 2010
-            },
-            {
-                "id": 12,
-                "title": "The Matrix",
-                "year": 1999
-            },
-            {
-                "id": 13,
-                "title": "Interstellar",
-                "year": 2014
-            },
-            {
-                "id": 14,
-                "title": "Star Wars: Episode IV - A New Hope",
-                "year": 1977
-            },
-            {
-                "id": 15,
-                "title": "Blade Runner 2049",
-                "year": 2017
-            },
-            {
-                "id": 16,
-                "title": "The Fifth Element",
-                "year": 1997
-            },
-            {
-                "id": 17,
-                "title": "District 9",
-                "year": 2009
-            },
-            {
-                "id": 18,
-                "title": "Edge of Tomorrow",
-                "year": 2014
-            },
-            {
-                "id": 19,
-                "title": "2001: A Space Odyssey",
-                "year": 1968
-            },
-            {
-                "id": 20,
-                "title": "Arrival",
-                "year": 2016
-            }
-        ],
-        "Fantasy": [
-            {
-                "id": 21,
-                "title": "The Lord of the Rings: The Fellowship of the Ring",
-                "year": 2001
-            },
-            {
-                "id": 22,
-                "title": "Harry Potter and the Philosopher's Stone",
-                "year": 2001
-            },
-            {
-                "id": 23,
-                "title": "Pan's Labyrinth",
-                "year": 2006
-            },
-            {
-                "id": 24,
-                "title": "Avatar",
-                "year": 2009
-            },
-            {
-                "id": 25,
-                "title": "The Chronicles of Narnia: The Lion, the Witch and the Wardrobe",
-                "year": 2005
-            },
-            {
-                "id": 26,
-                "title": "Willow",
-                "year": 1988
-            },
-            {
-                "id": 27,
-                "title": "The Hobbit: An Unexpected Journey",
-                "year": 2012
-            },
-            {
-                "id": 28,
-                "title": "Stardust",
-                "year": 2007
-            },
-            {
-                "id": 29,
-                "title": "The Shape of Water",
-                "year": 2017
-            },
-            {
-                "id": 30,
-                "title": "Labyrinth",
-                "year": 1986
-            }
-        ],
-        "Drama": [
-            {
-                "id": 31,
-                "title": "Forrest Gump",
-                "year": 1994
-            },
-            {
-                "id": 32,
-                "title": "The Shawshank Redemption",
-                "year": 1994
-            },
-            {
-                "id": 33,
-                "title": "The Godfather",
-                "year": 1972
-            },
-            {
-                "id": 34,
-                "title": "Schindler's List",
-                "year": 1993
-            },
-            {
-                "id": 35,
-                "title": "The Green Mile",
-                "year": 1999
-            },
-            {
-                "id": 36,
-                "title": "12 Years a Slave",
-                "year": 2013
-            },
-            {
-                "id": 37,
-                "title": "A Beautiful Mind",
-                "year": 2001
-            },
-            {
-                "id": 38,
-                "title": "The Pursuit of Happyness",
-                "year": 2006
-            },
-            {
-                "id": 39,
-                "title": "Requiem for a Dream",
-                "year": 2000
-            },
-            {
-                "id": 40,
-                "title": "Moonlight",
-                "year": 2016
-            }
-        ]
+        "id": 1,
+        "title": "The Dark Knight",
+        "year": 2008,
+        "genre": "Action"
+    },
+    {
+        "id": 2,
+        "title": "The Avengers",
+        "year": 2012,
+        "genre": "Action"
+    },
+    {
+        "id": 3,
+        "title": "Mad Max: Fury Road",
+        "year": 2015,
+        "genre": "Action"
+    },
+    {
+        "id": 4,
+        "title": "John Wick",
+        "year": 2014,
+        "genre": "Action"
+    },
+    {
+        "id": 5,
+        "title": "Gladiator",
+        "year": 2000,
+        "genre": "Action"
+    },
+    {
+        "id": 6,
+        "title": "Die Hard",
+        "year": 1988,
+        "genre": "Action"
+    },
+    {
+        "id": 7,
+        "title": "Kill Bill: Volume 1",
+        "year": 2003,
+        "genre": "Action"
+    },
+    {
+        "id": 8,
+        "title": "Léon: The Professional",
+        "year": 1994,
+        "genre": "Action"
+    },
+    {
+        "id": 9,
+        "title": "Terminator 2: Judgment Day",
+        "year": 1991,
+        "genre": "Action"
+    },
+    {
+        "id": 10,
+        "title": "The Raid",
+        "year": 2011,
+        "genre": "Action"
+    },
+    {
+        "id": 11,
+        "title": "Inception",
+        "year": 2010,
+        "genre": "Science-Fiction"
+    },
+    {
+        "id": 12,
+        "title": "The Matrix",
+        "year": 1999,
+        "genre": "Science-Fiction"
+    },
+    {
+        "id": 13,
+        "title": "Interstellar",
+        "year": 2014,
+        "genre": "Science-Fiction"
+    },
+    {
+        "id": 14,
+        "title": "Star Wars: Episode IV - A New Hope",
+        "year": 1977,
+        "genre": "Science-Fiction"
+    },
+    {
+        "id": 15,
+        "title": "Blade Runner 2049",
+        "year": 2017,
+        "genre": "Science-Fiction"
+    },
+    {
+        "id": 16,
+        "title": "The Fifth Element",
+        "year": 1997,
+        "genre": "Science-Fiction"
+    },
+    {
+        "id": 17,
+        "title": "District 9",
+        "year": 2009,
+        "genre": "Science-Fiction"
+    },
+    {
+        "id": 18,
+        "title": "Edge of Tomorrow",
+        "year": 2014,
+        "genre": "Science-Fiction"
+    },
+    {
+        "id": 19,
+        "title": "2001: A Space Odyssey",
+        "year": 1968,
+        "genre": "Science-Fiction"
+    },
+    {
+        "id": 20,
+        "title": "Arrival",
+        "year": 2016,
+        "genre": "Science-Fiction"
+    },
+    {
+        "id": 21,
+        "title": "The Lord of the Rings: The Fellowship of the Ring",
+        "year": 2001,
+        "genre": "Fantasy"
+    },
+    {
+        "id": 22,
+        "title": "Harry Potter and the Philosopher's Stone",
+        "year": 2001,
+        "genre": "Fantasy"
+    },
+    {
+        "id": 23,
+        "title": "Pan's Labyrinth",
+        "year": 2006,
+        "genre": "Fantasy"
+    },
+    {
+        "id": 24,
+        "title": "Avatar",
+        "year": 2009,
+        "genre": "Fantasy"
+    },
+    {
+        "id": 25,
+        "title": "The Chronicles of Narnia: The Lion, the Witch and the Wardrobe",
+        "year": 2005,
+        "genre": "Fantasy"
+    },
+    {
+        "id": 26,
+        "title": "Willow",
+        "year": 1988,
+        "genre": "Fantasy"
+    },
+    {
+        "id": 27,
+        "title": "The Hobbit: An Unexpected Journey",
+        "year": 2012,
+        "genre": "Fantasy"
+    },
+    {
+        "id": 28,
+        "title": "Stardust",
+        "year": 2007,
+        "genre": "Fantasy"
+    },
+    {
+        "id": 29,
+        "title": "The Shape of Water",
+        "year": 2017,
+        "genre": "Fantasy"
+    },
+    {
+        "id": 30,
+        "title": "Labyrinth",
+        "year": 1986,
+        "genre": "Fantasy"
+    },
+    {
+        "id": 31,
+        "title": "Forrest Gump",
+        "year": 1994,
+        "genre": "Drama"
+    },
+    {
+        "id": 32,
+        "title": "The Shawshank Redemption",
+        "year": 1994,
+        "genre": "Drama"
+    },
+    {
+        "id": 33,
+        "title": "The Godfather",
+        "year": 1972,
+        "genre": "Drama"
+    },
+    {
+        "id": 34,
+        "title": "Schindler's List",
+        "year": 1993,
+        "genre": "Drama"
+    },
+    {
+        "id": 35,
+        "title": "The Green Mile",
+        "year": 1999,
+        "genre": "Drama"
+    },
+    {
+        "id": 36,
+        "title": "12 Years a Slave",
+        "year": 2013,
+        "genre": "Drama"
+    },
+    {
+        "id": 37,
+        "title": "A Beautiful Mind",
+        "year": 2001,
+        "genre": "Drama"
+    },
+    {
+        "id": 38,
+        "title": "The Pursuit of Happyness",
+        "year": 2006,
+        "genre": "Drama"
+    },
+    {
+        "id": 39,
+        "title": "Requiem for a Dream",
+        "year": 2000,
+        "genre": "Drama"
+    },
+    {
+        "id": 40,
+        "title": "Moonlight",
+        "year": 2016,
+        "genre": "Drama"
     }
 ]
