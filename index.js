@@ -242,6 +242,51 @@ app.post("/users/login", (req, res) => {
   }
 });
 
+
+app.delete("/usersWatchlist", (req, res) => {
+  try {
+    const usersWatchList = readFile("usersWatchlist.json");
+    const { username, password, movieId } = req.body;
+    const usersList = readFile("users.json")
+ 
+
+    // Überprüfung, ob eingegebener Nutzername existiert
+    if (!usersList.some((user) => user.username === username)) {
+      return res.status(400).json({
+        error: `Invalid Criteria. Please check your input and try again.`,
+      });
+    }
+
+    // initialisierung des user-Objektes und seines gespeicherten gehashten Passwort
+    let FoundUser = usersList.find((user) => user.username === username);
+    let StoredHashedPassword = FoundUser.password;
+
+    // Überprüfung des eingegeben Passworts mit dem Gespeicherten
+    verifyPassword(password, StoredHashedPassword).then((ergebniss) => {
+      if (!ergebniss) {
+        return res.status(400).json({
+          error: `Invalid Criteria. Please check your input and try again.`,
+        });
+      }
+      
+      if (movieId) {
+        let movieIndex = usersWatchList[FoundUser.id].findIndex(movie => movie.id == movieId)
+        usersWatchList[FoundUser.id].splice(movieIndex, 1)
+      }
+
+      
+      writeFile("usersWatchlist.json", usersWatchList);
+      return res.status(200).json({
+        message: "Sucessfully deleted User!"
+      });
+    });
+  } catch (err) {
+    res.status(500).json({
+      error: `Internal Server Error: ${err}`,
+    });
+  }
+});
+
 app.listen(5005, () => {
   console.log("API läuft auf Port 5005");
 })
