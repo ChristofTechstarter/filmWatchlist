@@ -369,12 +369,14 @@ app.delete("/usersWatchlist", (req, res) => {
         let movieIndex = usersWatchList[FoundUser.id].findIndex(
           (movie) => movie.id == movieId
         );
+
         usersWatchList[FoundUser.id].splice(movieIndex, 1);
       }
 
       writeFile("usersWatchlist.json", usersWatchList);
       return res.status(200).json({
         message: "Sucessfully deleted User!",
+        userWatchlist: usersWatchList[FoundUser.id] // die aktuelle Watchlist (bei Wojciech)
       });
     });
   } catch (err) {

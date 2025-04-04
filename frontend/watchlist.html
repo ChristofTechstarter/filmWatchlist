@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Watchlist</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="watchlist.css">
+    <script src="watchlist.js" defer></script>
 </head>
+
 <body>
     <header>
         <h1>Meine Watchlist</h1>
@@ -21,5 +25,13 @@
     </div>
 
     <div id="content">
+        <div id="watchList"></div>
+        <form id="watchListFormular">
+            <div id="formularAnswerContainer"></div>
+            <input id="usernameInput" type="text" placeholder="Usernamen eingeben">
+            <input id="passwordInput" type="password" placeholder="Passwort eingeben...">
+            <button type="submit">Watchlist Anzeigen</button>
+        </form>
     </div>
+
 </html>
