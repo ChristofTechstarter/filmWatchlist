@@ -4,7 +4,6 @@ const fs = require("fs");
 const path = require("path");
 const bcrypt = require("bcrypt");
 
-
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "frontend")));
 
@@ -73,34 +72,34 @@ app.get("/films", (req, res) => {
 
 app.post("/users", (req, res) => {
   try {
-
-
     const { username, password } = req.body; // Extrahiert Nutzerdaten aus der Anfrage.
 
     // Prüfen, ob Benutzername und Passwort vorhanden sind.
     if (!username || !password) {
-      return res.status(400).json({ error: "Username und Passwort erforderlich!" });
+      return res
+        .status(400)
+        .json({ error: "Username und Passwort erforderlich!" });
     }
 
-    let users = readFile("users.json");// Bestehenden Nutzer aus der Datei laden.
+    let users = readFile("users.json"); // Bestehenden Nutzer aus der Datei laden.
 
     // Prüfen, ob der Benutzer bereits existiert.
-    if (users.some(user => user.username === username)) {
+    if (users.some((user) => user.username === username)) {
       return res.status(409).json({ error: "Nutzer existiert bereits." });
     }
     // Neuen Nutzer zur Liste hinzufügen.
-    hashPassword(password).then(hashedPassword => {
+    hashPassword(password).then((hashedPassword) => {
       users.push({ id: users.length + 1, username, password: hashedPassword });
-      writeFile("users.json", users) // Nutzerliste speichern
+      writeFile("users.json", users); // Nutzerliste speichern
 
       res.status(201).json({ message: "Nutzer erfolgreich hinzugefügt." });
-    })
+    });
   } catch (err) {
     res.status(500).json({
       error: `Internal Server Error: ${err}`,
     });
   }
-})
+});
 
 app.put("/users", (req, res) => {
   try {
@@ -242,14 +241,53 @@ app.post("/users/login", (req, res) => {
   }
 });
 
+app.post("/watchlist", (req, res) => {
+  try {
+    const usersWatchList = readFile("usersWatchlist.json");
+    const usersList = readFile("users.json");
+    const { username, password } = req.body;
 
+    // Überprüfung, ob eingegebener Nutzername existiert
+    if (!usersList.some((user) => user.username === username)) {
+      return res.status(400).json({
+        error: `Invalid Criteria. Please check your input and try again.`,
+      });
+    }
+
+    // initialisierung des user-Objektes und seines gespeicherten gehashten Passwort
+    let FoundUser = usersList.find((user) => user.username === username);
+    let StoredHashedPassword = FoundUser.password;
+
+    // Überprüfung des eingegeben Passworts mit dem Gespeicherten
+    verifyPassword(password, StoredHashedPassword).then((ergebniss) => {
+      if (!ergebniss) {
+        return res.status(400).json({
+          error: `Invalid Criteria. Please check your input and try again.`,
+        });
+      }
+
+      // Überprüfung, ob Liste existiert, wenn nicht ein Fehler zurück gegeben!
+      const userID = FoundUser.id;
+      if (!usersWatchList[userID]) {
+        return res
+          .status(404)
+          .json({ error: "Du hast noch keine Watchlist erstellt!" });
+      }
+
+      return res.status(200).json({ userWatchlist: usersWatchList[userID] });
+    });
+  } catch (err) {
+    res.status(500).json({
+      error: `Internal Server Error: ${err}`,
+    });
+  }
+});
 
 app.post("/films", (req, res) => {
-
   try {
     const filmList = readFile("films.json");
     const usersWatchList = readFile("usersWatchlist.json");
-    const usersList = readFile("users.json")
+    const usersList = readFile("users.json");
 
     const { username, password, filmID } = req.body;
 
@@ -302,25 +340,11 @@ app.post("/films", (req, res) => {
   }
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 app.delete("/usersWatchlist", (req, res) => {
   try {
     const usersWatchList = readFile("usersWatchlist.json");
     const { username, password, movieId } = req.body;
-    const usersList = readFile("users.json")
-
+    const usersList = readFile("users.json");
 
     // Überprüfung, ob eingegebener Nutzername existiert
     if (!usersList.some((user) => user.username === username)) {
@@ -342,14 +366,15 @@ app.delete("/usersWatchlist", (req, res) => {
       }
 
       if (movieId) {
-        let movieIndex = usersWatchList[FoundUser.id].findIndex(movie => movie.id == movieId)
-        usersWatchList[FoundUser.id].splice(movieIndex, 1)
+        let movieIndex = usersWatchList[FoundUser.id].findIndex(
+          (movie) => movie.id == movieId
+        );
+        usersWatchList[FoundUser.id].splice(movieIndex, 1);
       }
-
 
       writeFile("usersWatchlist.json", usersWatchList);
       return res.status(200).json({
-        message: "Sucessfully deleted User!"
+        message: "Sucessfully deleted User!",
       });
     });
   } catch (err) {
@@ -361,4 +386,4 @@ app.delete("/usersWatchlist", (req, res) => {
 
 app.listen(5005, () => {
   console.log("API läuft auf Port 5005");
-})
+});
